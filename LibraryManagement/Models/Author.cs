@@ -12,8 +12,5 @@ public class Author
 
     public DateTime BirthDate { get; set; }
 
-    public ICollection<Book> Books { get; set; }
-
-
-
+    public List<Book> Books { get; set; }
 }
