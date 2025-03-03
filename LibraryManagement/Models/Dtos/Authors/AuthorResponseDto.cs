@@ -1,7 +1,9 @@
 ﻿namespace LibraryManagement.Models.Dtos.Authors;
 
-public class AuthorAddRequestDto
+public class AuthorResponseDto
 {
+    public int Id { get; set; }
+
     public string FirstName { get; set; }
 
     public string SurName { get; set; }
