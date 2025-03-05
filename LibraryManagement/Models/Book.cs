@@ -14,7 +14,7 @@ public class Book
     // Navigation Property
 
     public int CategoryId { get; set; }
-    public Category Category { get; set; }
+    public Author Category { get; set; }
 
 
     public int AuthorId { get; set; }
