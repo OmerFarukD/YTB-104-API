@@ -1,4 +1,6 @@
 ﻿using LibraryManagement.DataAccess;
+using LibraryManagement.DataAccess.Abstracts;
+using LibraryManagement.DataAccess.Concretes;
 using LibraryManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,11 @@ namespace LibraryManagement.Controllers;
 public class BookController : ControllerBase
 {
 
+    // Concretes
+
     //http://localhost:5078/api/Book/add
 
-    BaseDbContext context = new BaseDbContext();
+   IBookRepository bookRepository = new BookRepository();
 
     // HttpGet : Kaynaktan veri okuma işlemleri için kullanlır.
     // HttpPost : Kaynağa veri ekleme, silme , güncelleme işlemleri için kullanılır.
@@ -23,9 +27,7 @@ public class BookController : ControllerBase
     {
         // INSERT INTO BOOKS() VALUES();
 
-        context.Books.Add(book);
-        context.SaveChanges();
-
+        bookRepository.Add(book);
 
         return Ok("başarıyla eklendi.");
     }
@@ -35,7 +37,7 @@ public class BookController : ControllerBase
     {
         // SELECT * FROM Books
 
-        List<Book> books = context.Books.ToList();
+        List<Book> books = bookRepository.GetAll();
 
         return Ok(books);
     }
@@ -49,7 +51,7 @@ public class BookController : ControllerBase
 
         // Book book = context.Books.Find(text);
 
-        Book book = context.Books.SingleOrDefault(x=>x.Id == id);
+        Book book = bookRepository.GetById(id);
 
 
 
