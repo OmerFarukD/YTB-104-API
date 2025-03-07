@@ -1,21 +1,12 @@
-﻿namespace LibraryManagement.Models;
+﻿namespace LibraryManagement.Models.Dtos.Books;
 
-public class Book
+public class BookAddRequestDto
 {
-
-    public int Id { get; set; }
     public string Title { get; set; }
     public string Isbn { get; set; }
 
     public int Page { get; set; }
     public double Price { get; set; }
-
-
-
     public int CategoryId { get; set; }
-    public Category Category { get; set; }
-
-
     public int AuthorId { get; set; }
-    public Author Author { get; set; }
 }

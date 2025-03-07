@@ -2,6 +2,7 @@
 using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.DataAccess.Concretes;
 using LibraryManagement.Models;
+using LibraryManagement.Models.Dtos.Books;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,19 @@ public class BookController : ControllerBase
 
 
     [HttpPost("add")]
-    public IActionResult Add(Book book)
+    public IActionResult Add(BookAddRequestDto  dto)
     {
         // INSERT INTO BOOKS() VALUES();
+
+        Book book = new Book()
+        {
+            Title = dto.Title,
+            AuthorId = dto.AuthorId,
+            CategoryId = dto.CategoryId,
+            Isbn = dto.Isbn,
+            Page = dto.Page,
+            Price = dto.Price
+        };
 
         bookRepository.Add(book);
 
@@ -39,7 +50,27 @@ public class BookController : ControllerBase
 
         List<Book> books = bookRepository.GetAll();
 
-        return Ok(books);
+        List<BookResponseDto> responses = new List<BookResponseDto>();
+
+        foreach (Book book in books)
+        {
+            BookResponseDto dto = new BookResponseDto()
+            {
+                AuthorId = book.AuthorId,
+                AuthorName = $"{book.Author.FirstName} {book.Author.SurName}",
+                CategoryId = book.CategoryId,
+                CategoryName = book.Category.Name,
+                Id = book.Id,
+                Isbn = book.Isbn,
+                Page = book.Page,
+                Price = book.Price,
+                Title = book.Title
+            };
+
+            responses.Add(dto);
+        }
+
+        return Ok(responses);
     }
 
     [HttpGet("getbyid")]

@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.DataAccess.Concretes;
 
@@ -28,7 +29,7 @@ public class BookRepository : IBookRepository
 
     public List<Book> GetAll()
     {
-        List<Book> books = context.Books.ToList();
+        List<Book> books = context.Books.Include(x=>x.Category).Include(z=>z.Author).ToList();
         return books;
     }
 
