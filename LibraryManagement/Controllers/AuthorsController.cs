@@ -1,7 +1,6 @@
 ﻿using LibraryManagement.DataAccess;
 using LibraryManagement.Models;
 using LibraryManagement.Models.Dtos.Authors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers;

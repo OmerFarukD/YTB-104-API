@@ -1,11 +1,7 @@
-﻿using LibraryManagement.DataAccess;
-using LibraryManagement.DataAccess.Abstracts;
-using LibraryManagement.DataAccess.Concretes;
-using LibraryManagement.Models;
-using LibraryManagement.Models.Dtos.Books;
-using Microsoft.AspNetCore.Http;
+﻿using LibraryManagement.Models.Dtos.Books;
+using LibraryManagement.Services.Abstracts;
+using LibraryManagement.Services.Concretes;
 using Microsoft.AspNetCore.Mvc;
-
 namespace LibraryManagement.Controllers;
 
 [Route("api/[controller]")]
@@ -17,7 +13,7 @@ public class BookController : ControllerBase
 
     //http://localhost:5078/api/Book/add
 
-   IBookRepository bookRepository = new BookRepository();
+    IBookService bookService = new BookService();
 
     // HttpGet : Kaynaktan veri okuma işlemleri için kullanlır.
     // HttpPost : Kaynağa veri ekleme, silme , güncelleme işlemleri için kullanılır.
@@ -26,19 +22,8 @@ public class BookController : ControllerBase
     [HttpPost("add")]
     public IActionResult Add(BookAddRequestDto  dto)
     {
-        // INSERT INTO BOOKS() VALUES();
 
-        Book book = new Book()
-        {
-            Title = dto.Title,
-            AuthorId = dto.AuthorId,
-            CategoryId = dto.CategoryId,
-            Isbn = dto.Isbn,
-            Page = dto.Page,
-            Price = dto.Price
-        };
-
-        bookRepository.Add(book);
+        bookService.Add(dto);
 
         return Ok("başarıyla eklendi.");
     }
@@ -46,31 +31,9 @@ public class BookController : ControllerBase
     [HttpGet("getall")]
     public IActionResult GetAll()
     {
-        // SELECT * FROM Books
-
-        List<Book> books = bookRepository.GetAll();
-
-        List<BookResponseDto> responses = new List<BookResponseDto>();
-
-        foreach (Book book in books)
-        {
-            BookResponseDto dto = new BookResponseDto()
-            {
-                AuthorId = book.AuthorId,
-                AuthorName = $"{book.Author.FirstName} {book.Author.SurName}",
-                CategoryId = book.CategoryId,
-                CategoryName = book.Category.Name,
-                Id = book.Id,
-                Isbn = book.Isbn,
-                Page = book.Page,
-                Price = book.Price,
-                Title = book.Title
-            };
-
-            responses.Add(dto);
-        }
-
-        return Ok(responses);
+      
+        List<BookResponseDto> books = bookService.GetAll();
+        return Ok(books);
     }
 
     [HttpGet("getbyid")]
@@ -82,7 +45,7 @@ public class BookController : ControllerBase
 
         // Book book = context.Books.Find(text);
 
-        Book book = bookRepository.GetById(id);
+        BookResponseDto book = bookService.GetById(id);
 
 
 

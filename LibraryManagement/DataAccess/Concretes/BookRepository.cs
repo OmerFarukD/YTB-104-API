@@ -42,7 +42,7 @@ public class BookRepository : IBookRepository
 
     public Book? GetById(int id)
     {
-        Book? book = context.Books.Find(id);
+        Book? book = context.Books.Include(x => x.Category).Include(z => z.Author).SingleOrDefault(X => X.Id == id);
         return book;
     }
 
