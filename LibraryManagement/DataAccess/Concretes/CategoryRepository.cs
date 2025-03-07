@@ -5,7 +5,9 @@ namespace LibraryManagement.DataAccess.Concretes;
 
 public class CategoryRepository : ICategoryRepository
 {
+    
     BaseDbContext context = new BaseDbContext();
+
 
     public void Add(Category category)
     {
