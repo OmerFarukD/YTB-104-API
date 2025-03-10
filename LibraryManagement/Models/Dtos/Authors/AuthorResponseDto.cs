@@ -10,7 +10,7 @@ public class AuthorResponseDto
 
     public int BirthDay { get; set; }
 
-    public int BirthMonth { get; set; }
+    public string BirthMonth { get; set; }
 
     public int BirthYear { get; set; }
 
