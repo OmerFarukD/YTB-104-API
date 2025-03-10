@@ -8,7 +8,6 @@ namespace LibraryManagement.Services.Concretes;
 
 public class CategoryService : ICategoryService
 {
-
     ICategoryRepository categoryRepository = new CategoryRepository();
 
     public void Add(CategoryAddRequestDto categoryAddRequestDto)
@@ -23,6 +22,7 @@ public class CategoryService : ICategoryService
         categoryRepository.Delete(category);
     }
 
+    
     public List<CategoryResponseDto> GetAll()
     {
         List<Category> categories = categoryRepository.GetAll();
@@ -46,19 +46,13 @@ public class CategoryService : ICategoryService
         //    CategoryResponseDto response = ConvertToResponseDto(category);
         //    responses.Add(response);
         //}
-
-
         return categories.Select(x=> ConvertToResponseDto(x)).ToList();
-
     }
-
-
 
     private CategoryResponseDto ConvertToResponseDto(Category category)
     {
         return new CategoryResponseDto {Id = category.Id, Name=category.Name };
     }
-
     private Category ConvertToCategory(CategoryAddRequestDto dto)
     {
         return new Category { Name = dto.Name };
