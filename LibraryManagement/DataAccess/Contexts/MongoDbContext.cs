@@ -11,6 +11,8 @@ public class MongoDbContext : DbContext
         optionsBuilder.UseMongoDB("mongodb://localhost:27017", "BookProject_user_db");
     }
 
+
+
     public DbSet<User> Users { get; set; }
 
 }
