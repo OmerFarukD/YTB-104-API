@@ -1,7 +1,7 @@
 ﻿using LibraryManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManagement.DataAccess;
+namespace LibraryManagement.DataAccess.Contexts;
 
 public class BaseDbContext : DbContext
 {
