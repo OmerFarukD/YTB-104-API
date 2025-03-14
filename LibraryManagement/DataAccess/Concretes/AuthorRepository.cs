@@ -8,8 +8,12 @@ public class AuthorRepository : IAuthorRepository
 {
 
 
-    BaseDbContext context = new BaseDbContext();
+    private BaseDbContext context;
 
+    public AuthorRepository(BaseDbContext context)
+    {
+        this.context = context;
+    }
 
 
     public void Add(Author author)

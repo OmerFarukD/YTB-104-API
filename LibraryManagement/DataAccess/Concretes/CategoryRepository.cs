@@ -6,35 +6,40 @@ namespace LibraryManagement.DataAccess.Concretes;
 
 public class CategoryRepository : ICategoryRepository
 {
-    
-    BaseDbContext context = new BaseDbContext();
+
+    private BaseDbContext _context;
+
+    public CategoryRepository(BaseDbContext context)
+    {
+        _context = context;
+    }
 
 
     public void Add(Category category)
     {
-        context.Categories.Add(category);
-        context.SaveChanges();
+        _context.Categories.Add(category);
+        _context.SaveChanges();
     }
 
     public void Delete(Category category)
     {
-        context.Categories.Remove(category);
-        context.SaveChanges();
+        _context.Categories.Remove(category);
+        _context.SaveChanges();
     }
 
     public List<Category> GetAll()
     {
-        return context.Categories.ToList();
+        return _context.Categories.ToList();
     }
 
     public Category? GetById(int id)
     {
-        return context.Categories.Find(id);
+        return _context.Categories.Find(id);
     }
 
     public void Update(Category category)
     {
-        context.Categories.Update(category);
-        context.SaveChanges();
+        _context.Categories.Update(category);
+        _context.SaveChanges();
     }
 }

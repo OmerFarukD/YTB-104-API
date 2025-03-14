@@ -13,9 +13,9 @@ public class Book
 
 
     public int CategoryId { get; set; }
-    public Category Category { get; set; } = new Category();
+    public Category Category { get; set; } 
 
 
     public int AuthorId { get; set; }
-    public Author Author { get; set; } = new Author();
+    public Author Author { get; set; } 
 }

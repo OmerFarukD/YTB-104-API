@@ -8,7 +8,12 @@ namespace LibraryManagement.Services.Concretes;
 
 public class AuthorService : IAuthorService
 {
-    IAuthorRepository authorRepository = new AuthorRepository();
+    private IAuthorRepository authorRepository;
+
+    public AuthorService(IAuthorRepository authorRepository)
+    {
+        this.authorRepository = authorRepository;
+    }
 
     public void Add(AuthorAddRequestDto authorAddRequestDto)
     {

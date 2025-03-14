@@ -11,4 +11,8 @@ public interface IUserRepository
     List<User> GetAll();
 
     User GetById(Guid id);
+
+    void Delete(User user);
+
+    User GetByEmail(string email);
 }

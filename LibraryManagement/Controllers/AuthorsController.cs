@@ -12,7 +12,12 @@ namespace LibraryManagement.Controllers;
 public class AuthorsController : ControllerBase
 {
 
-    private IAuthorService authorService = new AuthorService();
+    private IAuthorService authorService;
+
+    public AuthorsController(IAuthorService authorService)
+    {
+        this.authorService = authorService;
+    }
 
 
     [HttpPost("add")]

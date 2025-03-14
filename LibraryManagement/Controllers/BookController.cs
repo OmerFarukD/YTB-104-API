@@ -13,7 +13,12 @@ public class BookController : ControllerBase
 
     //http://localhost:5078/api/Book/add
 
-    IBookService bookService = new BookService();
+    private IBookService bookService;
+
+    public BookController(IBookService bookService)
+    {
+        this.bookService = bookService;
+    }
 
     // HttpGet : Kaynaktan veri okuma işlemleri için kullanlır.
     // HttpPost : Kaynağa veri ekleme, silme , güncelleme işlemleri için kullanılır.

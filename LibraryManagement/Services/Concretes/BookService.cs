@@ -8,8 +8,12 @@ namespace LibraryManagement.Services.Concretes;
 
 public class BookService : IBookService
 {
+    private IBookRepository bookRepository;
 
-    IBookRepository bookRepository = new BookRepository();
+    public BookService(IBookRepository bookRepository)
+    {
+        this.bookRepository = bookRepository;
+    }
 
     public void Add(BookAddRequestDto dto)
     {

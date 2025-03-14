@@ -1,18 +1,12 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.DataAccess.Contexts;
 using LibraryManagement.Models;
-using MongoDB.Bson;
 
 namespace LibraryManagement.DataAccess.Concretes;
 
-public class UserRepository : IUserRepository
+public class UserSqlRepository : IUserRepository
 {
-    private MongoDbContext context;
-
-    public UserRepository(MongoDbContext context)
-    {
-        this.context = context;
-    }
+    BaseDbContext context = new BaseDbContext();
     public void Add(User user)
     {
         context.Users.Add(user);

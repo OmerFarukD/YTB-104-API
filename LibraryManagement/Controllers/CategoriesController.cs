@@ -1,6 +1,8 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.DataAccess.Concretes;
 using LibraryManagement.Models;
+using LibraryManagement.Models.Dtos.Categories;
+using LibraryManagement.Services.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers;
@@ -10,15 +12,18 @@ namespace LibraryManagement.Controllers;
 public class CategoriesController : ControllerBase
 {
 
-    ICategoryRepository categoryRepository = new CategoryRepository();
+    private ICategoryService _categoryService;
 
-
+    public CategoriesController(ICategoryService categoryService)
+    {
+        _categoryService = categoryService;
+    }
 
 
     [HttpPost("add")]
-    public IActionResult Add(Category category)
+    public IActionResult Add(CategoryAddRequestDto category)
     {
-        categoryRepository.Add(category);
+        _categoryService.Add(category);
 
         return Ok("Kategori eklendi.");
     }
@@ -27,7 +32,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("getall")]
     public IActionResult GetAll()
     {
-        List<Category> categories = categoryRepository.GetAll();
+        List<CategoryResponseDto> categories = _categoryService.GetAll();
 
         return Ok(categories);
     }

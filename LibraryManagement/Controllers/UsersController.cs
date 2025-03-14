@@ -1,6 +1,7 @@
-﻿using LibraryManagement.DataAccess.Abstracts;
-using LibraryManagement.DataAccess.Concretes;
-using LibraryManagement.Models;
+﻿using LibraryManagement.Models;
+using LibraryManagement.Models.Dtos.Users;
+using LibraryManagement.Services.Abstracts;
+using LibraryManagement.Services.Concretes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers
@@ -9,13 +10,20 @@ namespace LibraryManagement.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserRepository userRepository = new UserRepository();
 
+        private IUserService _userService;
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+        
 
         [HttpPost("add")]
-        public IActionResult Add(User user)
+        public IActionResult Add(UserAddRequestDto user)
         {
-            userRepository.Add(user);
+            
+            _userService.Add(user);
             return Ok("Kullanıcı Eklendi.");
         }
 
@@ -23,16 +31,16 @@ namespace LibraryManagement.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(string id)
         {
-            Guid newId =  Guid.Parse(id);
-            User user = userRepository.GetById(newId);
-            return Ok(user);
+
+            UserResponseDto userResponseDto = _userService.GetById(id);
+            return Ok(userResponseDto);
 
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            List<User> users = userRepository.GetAll();
+            List<UserResponseDto> users = _userService.GetAll();
 
             return Ok(users);
         }

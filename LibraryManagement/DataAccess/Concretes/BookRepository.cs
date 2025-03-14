@@ -12,8 +12,12 @@ namespace LibraryManagement.DataAccess.Concretes;
 // Interface ayrışması 
 public class BookRepository : IBookRepository
 {
+    private BaseDbContext context;
 
-    BaseDbContext context = new BaseDbContext();
+    public BookRepository(BaseDbContext context)
+    {
+        this.context = context;
+    }
 
     public void Add(Book book)
     {
