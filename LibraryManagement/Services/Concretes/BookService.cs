@@ -1,22 +1,34 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.DataAccess.Concretes;
+using LibraryManagement.Exceptions.Types;
 using LibraryManagement.Models;
 using LibraryManagement.Models.Dtos.Books;
 using LibraryManagement.Services.Abstracts;
+using LibraryManagement.Services.BusinessRules;
+using LibraryManagement.Services.ValidationRules;
 
 namespace LibraryManagement.Services.Concretes;
 
 public class BookService : IBookService
 {
     private IBookRepository bookRepository;
+    private BookBusinessRules _businessRules;
 
-    public BookService(IBookRepository bookRepository)
+    public BookService(IBookRepository bookRepository, BookBusinessRules businessRules)
     {
         this.bookRepository = bookRepository;
+        _businessRules = businessRules;
     }
 
     public void Add(BookAddRequestDto dto)
     {
+
+        BookValidationRules.BookAddValidator(dto);
+
+        _businessRules.TitleMustBeUnique(dto.Title);
+        _businessRules.IsbnMustBeUnique(dto.Isbn);
+    
+
         Book book = ConvertToTable(dto);
 
         bookRepository.Add(book);
@@ -42,7 +54,11 @@ public class BookService : IBookService
 
     public BookResponseDto? GetById(int id)
     {
-        Book book = bookRepository.GetById(id);
+        Book? book = bookRepository.GetById(id);
+
+        _businessRules.BookNotFound(book);
+      
+
         BookResponseDto dto = ConvertToResponseDto(book);
 
         return dto;

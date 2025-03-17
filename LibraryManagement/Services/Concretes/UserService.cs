@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
+using LibraryManagement.Exceptions.Types;
 using LibraryManagement.Models;
 using LibraryManagement.Models.Dtos.Users;
 using LibraryManagement.Services.Abstracts;
@@ -30,6 +31,12 @@ public class UserService : IUserService
         Guid convertId = new Guid(id);
 
         User user = _userRepository.GetById(convertId);
+
+        if(user is null)
+        {
+            throw new NotFoundException("Kullanıcı bulunamdı.");
+        }
+
         UserResponseDto responses = ConvertToResponseDto(user);
         return responses;
     }
@@ -37,6 +44,12 @@ public class UserService : IUserService
     public UserResponseDto? GetByEmail(string email)
     {
         User user = _userRepository.GetByEmail(email);
+
+        if (user is null)
+        {
+            throw new NotFoundException("Kullanıcı bulunamdı.");
+        }
+
         UserResponseDto responses = ConvertToResponseDto(user);
         return responses;
     }

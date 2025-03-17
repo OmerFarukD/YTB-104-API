@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Models.Dtos.Books;
+﻿using LibraryManagement.Exceptions.Types;
+using LibraryManagement.Models.Dtos.Books;
 using LibraryManagement.Services.Abstracts;
 using LibraryManagement.Services.Concretes;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +28,20 @@ public class BookController : ControllerBase
     [HttpPost("add")]
     public IActionResult Add(BookAddRequestDto  dto)
     {
+        try
+        {
+            bookService.Add(dto);
 
-        bookService.Add(dto);
+            return Ok("başarıyla eklendi.");
+        }catch(BusinessException ex)
+        {
+            return BadRequest(ex.Message);
+        }catch(ValidationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
-        return Ok("başarıyla eklendi.");
+
     }
 
     [HttpGet("getall")]
@@ -44,18 +55,17 @@ public class BookController : ControllerBase
     [HttpGet("getbyid")]
     public IActionResult GetById(int id)
     {
-        // Select * from Books where Id = 1
+        try
+        {
+            BookResponseDto book = bookService.GetById(id);
+            return Ok(book);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
 
-        //Book book = context.Books.FirstOrDefault(x=>x.Id == id);
-
-        // Book book = context.Books.Find(text);
-
-        BookResponseDto book = bookService.GetById(id);
-
-
-
-       // Book book = context.Books.Where(x => x.Id == id).SingleOrDefault();
-        return Ok(book);
+       
     }
 
 

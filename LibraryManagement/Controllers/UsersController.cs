@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Models;
+﻿using LibraryManagement.Exceptions.Types;
+using LibraryManagement.Models;
 using LibraryManagement.Models.Dtos.Users;
 using LibraryManagement.Services.Abstracts;
 using LibraryManagement.Services.Concretes;
@@ -32,9 +33,14 @@ namespace LibraryManagement.Controllers
         public IActionResult GetById(string id)
         {
 
-            UserResponseDto userResponseDto = _userService.GetById(id);
-            return Ok(userResponseDto);
-
+            try
+            {
+                UserResponseDto userResponseDto = _userService.GetById(id);
+                return Ok(userResponseDto);
+            }catch(NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("getall")]
