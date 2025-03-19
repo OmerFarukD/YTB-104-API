@@ -43,14 +43,7 @@ public class BookController : ControllerBase
     [HttpGet("getbyid")]
     public IActionResult GetById(int id)
     {
-        
-        
             BookResponseDto book = bookService.GetById(id);
             return Ok(book);
-        
-       
-       
     }
-
-
 }
