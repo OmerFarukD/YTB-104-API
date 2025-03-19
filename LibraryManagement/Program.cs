@@ -1,6 +1,7 @@
 using LibraryManagement.DataAccess.Abstracts;
 using LibraryManagement.DataAccess.Concretes;
 using LibraryManagement.DataAccess.Contexts;
+using LibraryManagement.Middlewares;
 using LibraryManagement.Services.Abstracts;
 using LibraryManagement.Services.BusinessRules;
 using LibraryManagement.Services.Concretes;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddExceptionHandler<ExceptionHandlerConfig>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -56,6 +58,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseExceptionHandler(_=> { });
 
 app.MapControllers();
 

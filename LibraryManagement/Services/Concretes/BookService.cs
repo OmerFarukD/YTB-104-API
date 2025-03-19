@@ -23,7 +23,7 @@ public class BookService : IBookService
     public void Add(BookAddRequestDto dto)
     {
 
-        BookValidationRules.BookAddValidator(dto);
+       // BookValidationRules.BookAddValidator(dto);
 
         _businessRules.TitleMustBeUnique(dto.Title);
         _businessRules.IsbnMustBeUnique(dto.Isbn);
