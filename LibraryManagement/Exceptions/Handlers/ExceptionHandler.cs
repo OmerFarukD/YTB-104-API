@@ -4,6 +4,9 @@ namespace LibraryManagement.Exceptions.Handlers;
 
 public abstract class ExceptionHandler
 {
+    public HttpResponse Response { get; set; }
+
+
 
     public Task HandleExceptionAsync(Exception exception)
     {

@@ -16,4 +16,6 @@ public class BookResponseDto
     public string AuthorName { get; set; }
 
     public string CategoryName { get; set; }
+
+    public string ImageUrl { get; set; }
 }
