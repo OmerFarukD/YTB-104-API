@@ -9,6 +9,23 @@ using LibraryManagement.Services.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+// Cors 1 başlangıç
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173") // React dev sunucusu
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+// cors 1 bitiş
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -65,6 +82,8 @@ app.UseAuthorization();
 
 
 app.UseMiddleware<ExceptionMiddleware>();
+// CORS middleware'i ekleniyor
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
