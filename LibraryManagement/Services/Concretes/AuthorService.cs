@@ -100,5 +100,4 @@ public class AuthorService : IAuthorService
             12 => "Aralık"
         };
     }
-
 }

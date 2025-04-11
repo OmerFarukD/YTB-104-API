@@ -1,13 +1,10 @@
 ﻿using LibraryManagement.DataAccess.Abstracts;
-using LibraryManagement.DataAccess.Concretes;
-using LibraryManagement.Exceptions.Types;
 using LibraryManagement.Models;
 using LibraryManagement.Models.Dtos.Books;
 using LibraryManagement.Services.Abstracts;
 using LibraryManagement.Services.BusinessRules;
-using LibraryManagement.Services.ValidationRules;
-
 namespace LibraryManagement.Services.Concretes;
+
 
 public class BookService : IBookService
 {
@@ -96,7 +93,8 @@ public class BookService : IBookService
             Isbn = book.Isbn,
             Page = book.Page,
             Price = book.Price,
-            Title = book.Title
+            Title = book.Title,
+            ImageUrl = book.ImageUrl
         };
 
         return dto;
